@@ -11,6 +11,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import Form from './form';
 import { useState,useEffect } from 'react';
+import Spreadsheet from "react-spreadsheet";
 
 const options = {
   plugins: {
@@ -58,16 +59,31 @@ const data = {
 function App() {
 
   const [expenses,setExpenses] = useState([]);
+  const [spreadsheetData,setSpreedsheetData] = useState([
+    [{ value: "Vanilla" }, { value: "Chocolate"}],
+    [{ value: "Strawberry" }, { value: "Cookies" }],
+  ]);
 
   useEffect(() => {
     console.log(expenses);
   }, [expenses]);
+
+  const updateSpreedsheet = (d) => {
+   
+    if(JSON.stringify(spreadsheetData) !== JSON.stringify(d)){
+      setSpreedsheetData([...d]);
+    }
+
+   console.log("RENDIRING");
+ };
 
   return (
     <div className='p-2'>
       <h1 className='text-white text-center'>Welcome To Expense Tracker</h1>
       <Form  data={expenses} dataHandler={setExpenses}/>
       <Bar options={options} data={data} />
+    
+      <Spreadsheet data={spreadsheetData} onChange={updateSpreedsheet} />
     </div>
   );
 }
