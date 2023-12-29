@@ -70,6 +70,7 @@ function App() {
 
   const updateSpreedsheet = (d) => {
    
+    // this is needed since there is bug on spreedshet that triggers infinite loop
     if(JSON.stringify(spreadsheetData) !== JSON.stringify(d)){
       setSpreedsheetData([...d]);
     }
